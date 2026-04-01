@@ -1,0 +1,22 @@
+import axios from "axios";
+
+const token = import.meta.env.VITE_TMDB_TOKEN;
+
+export const fetchMovies = async (query: string) => {
+  try {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/search/movie`,
+      {
+        params: {
+          query,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
