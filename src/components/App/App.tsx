@@ -4,8 +4,10 @@ import SearchBar from "../SearchBar/SearchBar";
 import s from "./App.module.css";
 import { fetchMovies } from "../../services/movieService";
 
-function App() {
+function App(): React.ReactElement {
   const [query, setQuery] = useState<string>("batman");
+
+  console.log(setQuery);
 
   useEffect(() => {
     const fetchData = async () => {

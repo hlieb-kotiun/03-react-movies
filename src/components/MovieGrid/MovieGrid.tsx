@@ -6,7 +6,9 @@ interface MovieGridProps {
   movies: Movie[];
 }
 
-const MovieGrid = (props: MovieGridProps) => {
+const MovieGrid = (props: MovieGridProps): React.ReactElement => {
+  console.log(props);
+
   return (
     <ul className={css.grid}>
       {/* Набір елементів списку з фільмами */}

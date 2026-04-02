@@ -1,14 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import toast from "react-hot-toast";
+import type React from "react";
 import styles from "./SearchBar.module.css";
 
 interface SearchBarProps {
   onSubmit: () => void;
 }
 
-const SearchBar = ({ onSubmit }: SearchBarProps) => {
-  const handleSubmit = (formData: FormData) => {
+const SearchBar = ({ onSubmit }: SearchBarProps): React.ReactElement => {
+  const handleSubmit = (formData: FormData): void => {
     const query = formData.get("query");
+    console.log(query);
+    onSubmit();
   };
 
   return (
