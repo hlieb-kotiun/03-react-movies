@@ -1,14 +1,19 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import toast from "react-hot-toast";
 import styles from "./SearchBar.module.css";
 
 interface SearchBarProps {
-  onSubmit: () => void;
+  onSubmit: (query: string) => void;
 }
 
 const SearchBar = ({ onSubmit }: SearchBarProps) => {
-  const handleSubmit = (formData: FormData) => {
+  const handleSubmit = (formData: FormData): void => {
     const query = formData.get("query");
+    console.log(query);
+    if (typeof query !== "string" || !query.trim()) {
+      toast("Please enter your search query.");
+      return;
+    }
+    onSubmit(query);
   };
 
   return (

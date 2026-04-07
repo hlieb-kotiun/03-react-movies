@@ -1,8 +1,11 @@
 import axios from "axios";
+import type { Movie } from "../types/movie";
 
 const token = import.meta.env.VITE_TMDB_TOKEN;
 
-export const fetchMovies = async (query: string) => {
+export const fetchMovies = async (
+  query: string,
+): Promise<Movie[] | undefined> => {
   try {
     const response = await axios.get(
       `https://api.themoviedb.org/3/search/movie`,
@@ -15,7 +18,7 @@ export const fetchMovies = async (query: string) => {
         },
       },
     );
-    return response;
+    return response.data.results;
   } catch (error) {
     console.log(error);
   }

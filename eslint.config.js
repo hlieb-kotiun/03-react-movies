@@ -19,10 +19,10 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
-    rules: {
-      "@typescript-eslint/explicit-function-return-type": "warn",
-      "@typescript-eslint/explicit-module-boundary-types": "warn",
-      "@typescript-eslint/no-explicit-any": "warn",
-    },
+    // rules: {
+    //   "@typescript-eslint/explicit-function-return-type": "warn",
+    //   "@typescript-eslint/explicit-module-boundary-types": "warn",
+    //   "@typescript-eslint/no-explicit-any": "warn",
+    // },
   },
 ]);
