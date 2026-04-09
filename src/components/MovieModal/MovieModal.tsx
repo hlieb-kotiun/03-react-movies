@@ -1,6 +1,8 @@
 import { createPortal } from "react-dom";
 import css from "./MovieModal.module.css";
 import type { Movie } from "../../types/movie";
+import type React from "react";
+import { useEffect } from "react";
 
 interface MovieModalProps {
   movie: Movie | null;
@@ -8,10 +10,37 @@ interface MovieModalProps {
 }
 
 const MovieModal = ({ movie, onClose }: MovieModalProps) => {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent): void => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    };
+  }, [onClose]);
+
+  const onBackdropClick = (e: React.MouseEvent<HTMLDivElement>): void => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
     movie !== null &&
     createPortal(
-      <div className={css.backdrop} role="dialog" aria-modal="true">
+      <div
+        className={css.backdrop}
+        onClick={onBackdropClick}
+        role="dialog"
+        aria-modal="true"
+      >
         <div className={css.modal}>
           <button
             onClick={onClose}
@@ -22,7 +51,7 @@ const MovieModal = ({ movie, onClose }: MovieModalProps) => {
           </button>
           <img
             src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-            alt="movie_title"
+            alt={`${movie.title}`}
             className={css.image}
           />
           <div className={css.content}>
