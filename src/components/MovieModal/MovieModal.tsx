@@ -22,7 +22,7 @@ const MovieModal = ({ movie, onClose }: MovieModalProps) => {
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = "auto";
     };
   }, [onClose]);
 
