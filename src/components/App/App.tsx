@@ -10,14 +10,15 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import MovieModal from "../MovieModal/MovieModal";
 
 function App(): React.ReactElement {
-  const [movies, setMovie] = useState<Movie[] | undefined>([]);
+  const [movies, setMovie] = useState<Movie[]>([]);
   const [currentMovie, setCurrentMovie] = useState<Movie | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
   const onClose = (): void => {
-    setIsModalOpen(false);
+    // setIsModalOpen(false);
+    setCurrentMovie(null);
   };
 
   const handleSubmit = async (q: string): Promise<void> => {
@@ -29,7 +30,7 @@ function App(): React.ReactElement {
       if (res?.length === 0) {
         toast("No movies found for your request.");
       }
-      setMovie(res);
+      setMovie(res as Movie[]);
     } catch (error) {
       setIsError(true);
       setIsLoading(false);
@@ -41,7 +42,7 @@ function App(): React.ReactElement {
 
   const handleImageClick = (movie: Movie): void => {
     setCurrentMovie(movie);
-    setIsModalOpen(true);
+    // setIsModalOpen(true);
   };
 
   return (
@@ -53,8 +54,12 @@ function App(): React.ReactElement {
       ) : (
         <ErrorMessage />
       )}
-      <MovieGrid onSelect={handleImageClick} movies={movies || []} />
-      {isModalOpen && <MovieModal onClose={onClose} movie={currentMovie} />}
+      {movies.length > 0 && (
+        <MovieGrid onSelect={handleImageClick} movies={movies || []} />
+      )}
+      {currentMovie !== null && (
+        <MovieModal onClose={onClose} movie={currentMovie} />
+      )}
     </div>
   );
 }
